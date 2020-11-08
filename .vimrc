@@ -572,6 +572,9 @@ augroup ClangFormatSettings
     " au BufNewFile,BufRead,BufAdd *.md set cole=0
 augroup END
 
+" TermDebug for GDB debugger integration
+packadd termdebug
+
 let g:indentLine_char = '¦'
 " let g:indentLine_setConceal = 0
 " let g:indentLine_enabled = 0
@@ -747,12 +750,12 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " Disable diagnostics
-" let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_enabled = 1
 let g:lsp_signs_error = {'text': '✗'}
 let g:lsp_signs_warning = {'text': '%'}
 " Disable highligh errors
 let g:lsp_highlights_enabled = 0
-let g:lsp_textprop_enabled = 0
+let g:lsp_textprop_enabled = 1
 let g:lsp_signs_priority = 11
 
 function! s:on_lsp_buffer_enabled() abort
@@ -870,7 +873,7 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " or
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap ss <Plug>(easymotion-s2)
+nmap SS <Plug>(easymotion-s2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -1130,7 +1133,14 @@ if isdirectory("build")
     nmap <leader>bf :call BuildCMakeProject("format", "build")<CR>
 endif
 
+function! MakeAndRun(app)
+    :wa
+    echon system("make -s && ./" . a:app)  
+endfunction
 
+nmap <F5> :call MakeAndRun("test")<CR>
+nmap ss :w<CR>
+nmap sa :wa<CR>
 
 " -----------------------------------------------------------------------------
 " error message formats - see :help errorformat
