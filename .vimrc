@@ -15,6 +15,19 @@ else
 endif
 
 call plug#begin('~/.vim/bundle')
+" Extra color schemes
+Plug 'arzg/vim-colors-xcode'
+Plug 'jcherven/jummidark.vim'
+Plug 'wadackel/vim-dogrun'
+Plug 'gilgigilgil/anderson.vim'
+Plug 'doums/darcula'
+Plug 'arzg/vim-corvine'
+Plug 'sainnhe/archived-colors'
+Plug 'sainnhe/forest-night'
+Plug 'sainnhe/forest-night'
+    
+" Python support
+Plug 'jeetsukumaran/vim-pythonsense'
 
 "PDFtoText 
 Plug 'makerj/vim-pdf'
@@ -118,9 +131,9 @@ Plug 'gikmx/ctrlp-obsession'
 Plug 'tpope/vim-abolish'
 
 " Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'kracejic/snippetinabox.vim'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" Plug 'kracejic/snippetinabox.vim'
 
 Plug 'scrooloose/syntastic'
 
@@ -197,9 +210,11 @@ Plug 'prabirshrestha/vim-lsp'
 " Add suport for languages
 Plug 'mattn/vim-lsp-settings'
 " Support snippets
-" Plug 'thomasfaingnaert/vim-lsp-snippets'
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-
+Plug 'SirVer/ultisnips'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 " Plug 'artur-shaik/vim-javacomplete2'
 
@@ -324,7 +339,7 @@ if isdirectory("/mingw32")
     nnoremap <leader>. :CtrlPBufTag<cr>
     nnoremap <leader>, :CtrlPTag<cr>
     nnoremap <leader>q :CtrlPQuickfix<cr>
-    nnoremap <Leader>ss :CtrlPObsession<CR>
+    " nnoremap <Leader>ss :CtrlPObsession<CR>
     nnoremap <leader>a :CtrlPBuffer<CR>
     nnoremap <leader><tab> :CtrlPBuffer<CR>
 else
@@ -351,7 +366,7 @@ else
     nnoremap <leader>. :BTags<cr>
     nnoremap <leader>, :Tags<cr>
     nnoremap <leader>q :CtrlPQuickfix<cr>
-    nnoremap <Leader>ss :CtrlPObsession<CR>
+    " nnoremap <Leader>ss :CtrlPObsession<CR>
     nnoremap <leader>a :Buffers<CR>
     nnoremap <leader><tab> :Buffers<CR>
     " fzf
@@ -430,18 +445,17 @@ nnoremap <C-w><C-w><C-w>l <C-w>>
 nnoremap <C-w><C-w><C-w>k <C-w>-
 nnoremap <C-w><C-w><C-w>j <C-w>+
 
-
 " buffers
-nmap \] :bnext<CR>
+vmap \] :bnext<CR>
 nmap \[ :bprev<CR>
-nmap <leader>w :bd<CR>
+nmap <leader>D :bd<CR>
 command! Bda :bufdo bd
 nnoremap <bs> <c-^>
 command! Bd bp|bd<space>#
 nnoremap <leader>W :Bd<CR>
 
-" syntax enable           " enable syntax processing
-syntax on           " enable syntax processing
+" syntax enable       " enable syntax processing
+" syntax on           " enable syntax processing
 
 " settings for kshenoy/vim-signature, it will color the marks with gitgutter
 " color
@@ -562,10 +576,11 @@ augroup ClangFormatSettings
     autocmd!
     " if you install vim-operator-user
     autocmd FileType c,cpp,objc,java,javascript map <buffer><Leader>c <Plug>(operator-clang-format)
-    autocmd FileType c,cpp syntax clear cppSTLconstant
+    " autocmd FileType c,cpp syntax clear cppSTLconstant
 
     autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
     autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
+    autocmd FileType c ClangFormatAutoEnable
 
     " autocmd FileType markdown set cole=0
     " au BufNewFile,BufRead *.mdw set nowrap
@@ -700,7 +715,7 @@ au CursorHold * checktime
 set tabpagemax=50 " max number of pages
 
 " colorscheme themeinabox
-colorscheme themeinabox
+colorscheme forest-night
 let g:airline_theme='base16_eighties'
 
 "plugins
@@ -711,7 +726,6 @@ set runtimepath^=~/.nvim/bundle/ctrlp.vim
 command! Wroot :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " fix typo
 command! W :w
-
 
 "   YCMd
 " http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
@@ -738,11 +752,25 @@ command! W :w
 " nnoremap <F9> :YcmCompleter GetDocImprecise<CR>
 " "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
-
+" ultisnip and LspSnip 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" set completeopt+=menuone
+
+set completeopt+=menuone
+
+if executable('clangd')
+    augroup vim_lsp_cpp
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+                    \ })
+	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+    augroup end
+endif
+"-----------------------------------------------------------------------
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -861,6 +889,9 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 let g:multi_cursor_exit_from_insert_mode=0
 
+" cursor shape between modes
+let &t_SI = "\e[3 q"
+let &t_EI = "\e[2 q"
 
 " easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -900,14 +931,25 @@ nmap <leader>T8 :set noexpandtab tabstop=8 shiftwidth=8 softtabstop=8<CR>
 
 
 " Python specific
-" au BufNewFile,BufRead *.py
-"     \ set tabstop=4
-"     \ set softtabstop=4
-"     \ set shiftwidth=4
-"     \ set textwidth=79
-"     \ set expandtab
-"     \ set autoindent
-"     \ set fileformat=unix
+
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
 
 command! Pandocahtml :w | ! pandocconvert.sh "%" html5
 command! Pandocpdf :w | ! pandocconvert.sh "%" pdf
@@ -1007,42 +1049,42 @@ command! Ctpdiff2 :!cleartool diff -pre -ser % | less
 
 " -----------------------------------------------------------------------------
 " Fix autocompletions
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
-      endif
-    endif
-  endif
-  return ""
-endfunction
-
-function! g:UltiSnips_Reverse()
-  call UltiSnips#JumpBackwards()
-  if g:ulti_jump_backwards_res == 0
-    return "\<C-P>"
-  endif
-
-  return ""
-endfunction
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
-
-inoremap <silent><C-X><C-U> <C-R>=g:UltiSnips_Complete()<CR>
+" function! g:UltiSnips_Complete()
+"   call UltiSnips#ExpandSnippet()
+"   if g:ulti_expand_res == 0
+"     if pumvisible()
+"       return "\<C-n>"
+"     else
+"       call UltiSnips#JumpForwards()
+"       if g:ulti_jump_forwards_res == 0
+"         return "\<TAB>"
+"       endif
+"     endif
+"   endif
+"   return ""
+" endfunction
+" 
+" function! g:UltiSnips_Reverse()
+"   call UltiSnips#JumpBackwards()
+"   if g:ulti_jump_backwards_res == 0
+"     return "\<C-P>"
+"   endif
+" 
+"   return ""
+" endfunction
+" 
+" if !exists("g:UltiSnipsJumpForwardTrigger")
+"   let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" endif
+" 
+" if !exists("g:UltiSnipsJumpBackwardTrigger")
+"   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" endif
+" 
+" au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
+" au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+" 
+" inoremap <silent><C-X><C-U> <C-R>=g:UltiSnips_Complete()<CR>
 
 " -----------------------------------------------------------------------------
 " execute macro on visal range
@@ -1133,12 +1175,26 @@ if isdirectory("build")
     nmap <leader>bf :call BuildCMakeProject("format", "build")<CR>
 endif
 
-function! MakeAndRun(app)
+function! MakeAndRun()
     :wa
-    echon system("make -s && ./" . a:app)  
+    let ftypes = split ("c cpp cc h hpp")
+    let filename = expand('%:r')
+
+    for file in ftypes
+        if &ft == file
+            " echo "C filetype detected..."
+            echon system("make -s && ./" . filename)  
+            break
+        else
+            " echo "ANY filetype detected..."
+            echon system("make")
+            break
+        endif
+    endfor
 endfunction
 
-nmap <F5> :call MakeAndRun("test")<CR>
+imap <F5> <ESC>
+nmap <F5> :call MakeAndRun()<CR>
 nmap ss :w<CR>
 nmap sa :wa<CR>
 
@@ -1155,4 +1211,7 @@ let &efm .= '%f:%l: error: %m' . ','
 let &efm .= '\.\.\/%f:%l: warning: %m' . ','
 let &efm .= '%f:%l: warning: %m' . ','
 
+" Change cursor modes when entering/exiting visual from/to normal mode
+:autocmd InsertEnter * set nocul
+:autocmd InsertLeave * set cul
 
