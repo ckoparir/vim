@@ -24,6 +24,8 @@ Plug 'VundleVim/Vundle.vim'
 
 Plug 'tpope/vim-surround'
 
+Plug 'tpope/vim-fugitive'
+
 Plug 'tomtom/tcomment_vim'
 
 Plug 'bling/vim-airline'
@@ -133,7 +135,7 @@ Plug 'tpope/vim-eunuch'
 "
 "Give a range to run part or all of the current buffer as a query.
 ":%DB mysql://root@localhost/bazquux
-"
+
 Plug 'tpope/vim-db'
 
 Plug 'Yggdroot/indentLine'
@@ -253,10 +255,7 @@ else
     " [Commands] --expect expression for directly executing the command
     let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-    " command! GGFiles call fzf#run(fzf#wrap({'source': 'if [ -d .git ] ; then git ls-files -co --exclude-standard ; elif [ -d .hg ] ; then hg locate ; else  find . ; fi', 'sink': 'e'}))
     command! GGFiles call fzf#run(fzf#wrap({'source': 'if git rev-parse --git-dir > /dev/null ; then git ls-files -co --exclude-standard ; elif [ -d .hg ] ; then hg locate ; else  find . ; fi', 'sink': 'e'}))
-    " command! GGFiles call fzf#run(fzf#wrap({'source': 'git ls-files -co --exclude-standard', 'sink': 'e'}))
-    " command! GGFiles call fzf#run(fzf#wrap({'source': 'git ls-files -co --exclude-standard', 'sink': 'e'}))
 
     nnoremap <C-p> :GGFiles<cr>
     nnoremap <leader>. :BTags<cr>
@@ -279,6 +278,7 @@ endif
 command! Ctagsgenerate :!ctags -R .
 command! Gtagsgenerate :!gtags
 " let GtagsCscope_Auto_Load = 1
+"
 " find references
 nnoremap <leader>ygr "zyiw:cs find c <C-r>z<CR>
 
@@ -298,7 +298,6 @@ nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 nmap <silent> <F3> :TagbarToggle<CR>
 nmap <silent> <F7> :TagbarOpenAutoClose<CR>
 let g:tagbar_case_insensitive = 1
-" let g:tagbar_compact = 1
 let g:tagbar_indent = 1
 let g:tagbar_map_showproto = "r"
 let g:tagbar_map_togglefold = "<space>"
@@ -308,7 +307,6 @@ let g:tagbar_sort = 0
 set pastetoggle=<F2>
 
 nnoremap <leader>a <C-A>
-" vnoremap <leader>a <Plug>VisualIncrement
 vnoremap <silent> <Plug><leader>a :<C-U>call <SID>doincrement(v:count1)<CR>
 " increment numbers
 noremap + <c-a>
@@ -345,9 +343,6 @@ nnoremap <bs> <c-^>
 command! Bd bp|bd<space>#
 nnoremap <leader>W :Bd<CR>
 
-" syntax enable       " enable syntax processing
-" syntax on           " enable syntax processing
-
 " settings for kshenoy/vim-signature, it will color the marks with gitgutter
 " color
 let g:SignatureMarkTextHLDynamic = 1
@@ -362,9 +357,9 @@ command! Stripwhitespace :%s/\s\+$//
 command! Whitespacestrip :%s/\s\+$//
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+xmap <leader>ea <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nmap <leader>ea <Plug>(EasyAlign)
 
 command! ColorPicker :VCoolor
 
@@ -373,12 +368,12 @@ let g:termdebug_popup = 0
 let g:termdebug_wide = 163
 
 " quickfix open
-:nmap gqf :copen 20<CR>
-command Quickfix :copen 20<CR>
-command QF :copen 20<CR>
-command Qf :copen 20<CR>
-command QFF :cclose 20<CR>
-command Qff :cclose 20<CR>
+:nmap        gqf :copen  20<CR>
+command Quickfix :copen  20<CR>
+command       QF :copen  20<CR>
+command       Qf :copen  20<CR>
+command      QFF :cclose 20<CR>
+command      Qff :cclose 20<CR>
 
 " quickfix next, prev
 :nmap [q :cprev<CR>
@@ -393,20 +388,12 @@ command Qff :cclose 20<CR>
 :nmap ]E :llast<CR>
 
 " Theme stuff
-"let base16colorspace=256  " Access colors present in 256 colorspace
 set background=dark
-" nnoremap <leader>1 :colorscheme railscasts<cr>:AirlineTheme dark<cr>
-" nnoremap <leader>2 :colorscheme molokai<cr>:AirlineTheme base16_monokai<cr>
-" nnoremap <leader>3 :colorscheme themeinabox<cr>:AirlineTheme base16_eighties<cr>
-" nnoremap <leader>4 :colorscheme themeinabox-light<cr>:AirlineTheme sol<cr>
-" nnoremap <leader>5 :colorscheme themeinabox-transparent<cr>:AirlineTheme base16_eighties<cr>
-" nnoremap <leader>6 :colorscheme themeinabox-blue<cr>:AirlineTheme base16_grayscale<cr>
 
 " get current syntax class
 nmap <leader>sy :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 
 "goto next file
 :nmap <C-`> :e#<CR>
@@ -418,15 +405,10 @@ nmap <leader>defs :g/def /#<CR> :noh <CR>
 "Showfunc.vim
 nmap <leader>func <Plug>ShowFunc
 nmap <leader>fun <Plug>ShowFunc<CR><C-w>H
-" nmap <leader>cf <Plug>(operator-clang-format)
-" vmap <leader>cf <Plug>(operator-clang-format)
 
 " duplicate lanes TODO
 nmap <leader>dd :s/\(^.*$\)/\1\r\1/<CR>:noh<CR>
 xmap <leader>dd :'<,'>s/\(.*\)/\1\r\1/<CR>:noh<CR>
-
-" New line in normal mode
-" nnoremap <CR> :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " json indent
 command! -range -nargs=0 -bar IndentJson <line1>,<line2>!python -m json.tool
@@ -459,37 +441,19 @@ augroup ClangFormatSettings
 
     autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
     autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
-    autocmd FileType c ClangFormatAutoEnable
-
-    " autocmd FileType markdown set cole=0
-    " au BufNewFile,BufRead *.mdw set nowrap
-    " au BufNewFile,BufRead,BufAdd *.md set cole=0
 augroup END
 
 " TermDebug for GDB debugger integration
 packadd termdebug
 
-" let g:indentLine_char = '¦'
-" let g:indentLine_setConceal = 0
-" let g:indentLine_enabled = 0
-" let g:indentLine_concealcursor = 'inc'
-" let g:indentLine_conceallevel = 0
-" let g:indentLine_fileTypeExclude = ['markdown']
-" let g:indentLine_fileType = ["yaml","yml","json"]
-
-" Neoformat
-let g:neoformat_enabled_python = ['autopep8']
-let g:neoformat_java_clang = {
-        \ 'exe': 'clang-format',
-        \ 'stdin': 1,
-        \ }
-let g:neoformat_enabled_java = ['clang']
+let g:indentLine_fileTypeExclude = ["markdown", "vim"]
+let g:indentLine_fileType = ["yaml","yml","json", "python", "c", "cpp", "h", "hpp", "cc"]
 
 nnoremap <Leader>cf :Neoformat<CR>
 vnoremap <Leader>cf :Neoformat<CR>
+
 " format line +-1
 autocmd FileType c,cpp,objc,java,javascript nnoremap <Leader>cc :.-1,.+1Neoformat<CR>
-
 
 " markdown ctags
 let g:tagbar_type_markdown = {
@@ -509,7 +473,6 @@ let g:tagbar_type_markdown = {
     \ ]
 \ }
 
-
 augroup filetypedetect
     au BufRead,BufNewFile *.log set filetype=log
     au BufReadPost,BufNewFile *.compositor set ft=compositor
@@ -523,30 +486,23 @@ augroup filetypedetect
     au BufReadPost,BufNewFile *.gsh set ft=Jenkinsfile
 augroup END
 
-
 let g:syntastic_cpp_compiler_options = "-std=c++14"
 let g:syntastic_java_checkers = []
 " add constant
 nmap <leader>cre /[,)]<CR>:nohlsearch<CR>Bhi&<ESC>?[,(]<CR>:nohlsearch<CR>wiconst <ESC>
-
 noremap <leader>cr :pyf ~/bin/clang-rename.py<cr>
 
 :nmap \e :NERDTreeToggle<CR>
-":nmap \t w setlocal wrap!<CR>:setlocal wrap?
-":command Wrap setlocal wrap!<CR>:setlocal wrap?
-":command :wrapt setlocal wrap!<CR>:setlocal wrap?<CR> " change wrapping
 command! E :e %:p:h
 command! LS :!ls -alh --color=always %:p:h
 
 "folding
-
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 nnoremap <space> za
 nnoremap z<space> zA
 set foldmethod=indent   " fold based on indent level
-
 
 " Paste without yanking selected
 xnoremap <leader>p "_dP
@@ -558,9 +514,8 @@ xnoremap S "_diwPb
 xnoremap x "_x
 xnoremap X "_X
 
-
 " movement
-
+"
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
@@ -629,8 +584,9 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " Disable diagnostics
 let g:lsp_diagnostics_enabled = 1
-let g:lsp_signs_error = {'text': '✗'}
-let g:lsp_signs_warning = {'text': '%'}
+let g:lsp_signs_error = {'text': ''}
+let g:lsp_signs_warning = {'text': ''}
+
 " Disable highligh errors
 let g:lsp_highlights_enabled = 0
 let g:lsp_textprop_enabled = 1
@@ -653,11 +609,7 @@ nmap gr <plug>(lsp-references)
 nmap gu <plug>(lsp-references)
 nmap gE <plug>(lsp-document-diagnostics)
 nmap ga <plug>(lsp-code-action)
-nmap <leader>ya <plug>(lsp-code-action)
-nmap <leader>yj <plug>(lsp-declaration)
-nmap <leader>yg <plug>(lsp-declaration)
-nmap <leader>yd <plug>(lsp-peek-declaration)
-nmap <leader>ys <plug>(lsp-status)
+nmap gs <plug>(lsp-status)
 
 augroup lsp_install
     au!
@@ -699,7 +651,7 @@ let g:airline#extensions#default#section_truncate_width = {
   \ }
 
 let w:airline_skip_empty_sections = 1
-let g:airline_section_b=' %{fugitive#head()}'
+" let g:airline_section_b=' %{fugitive#head()}'
 " let g:airline#extensions#hunks#enabled = 0
 " let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_section_z=' %l/%L:%c'
@@ -708,23 +660,6 @@ let g:airline#extensions#branch#format = 2
 set laststatus=2
 
 let g:airline_powerline_fonts = 1
-" let g:airline_symbols_ascii = 1
-
-" let g:airline#extensions#tabline#enabled = 0
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" autocmd VimEnter * set showtabline=0
-" autocmd VimEnter * AirlineToggle
-
-" nmap <leader><F5>          <Plug>XTablineToggleTabs
-" nmap <leader><F5>  <Plug>XTablineToggleFiltering
-
-" tabline
-" command! TablineON :let g:airline#extensions#tabline#enabled=1
-" command! TablineOFF :let g:airline#extensions#tabline#enabled=0
-" tabline
-" command! TablineON :set showtabline=1
-" command! TablineOFF :set showtabline=0
 
 " statusline
 command! StatuslineON :set laststatus=2
@@ -743,14 +678,9 @@ let &t_EI = "\e[2 q"
 
 " easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-" nmap <Leader>w <Plug>(easymotion-w)
+nmap <Leader>w <Plug>(easymotion-w)
 
 " Bi-directional find motion
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-"nmap s <Plug>(easymotion-s)
-" or
-" `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
 nmap SS <Plug>(easymotion-s2)
 
@@ -764,23 +694,7 @@ vnoremap <leader>k :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
-" -----------------------------------------------------------------------------
-" fast indentations changes
-nmap <leader>t1 :set expandtab tabstop=1 shiftwidth=1 softtabstop=1<CR>
-nmap <leader>T1 :set noexpandtab tabstop=1 shiftwidth=1 softtabstop=1<CR>
-nmap <leader>t2 :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
-nmap <leader>T2 :set noexpandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
-nmap <leader>t4 :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-nmap <leader>T4 :set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
-nmap <leader>t6 :set expandtab tabstop=6 shiftwidth=6 softtabstop=6<CR>
-nmap <leader>T6 :set noexpandtab tabstop=6 shiftwidth=6 softtabstop=6<CR>
-nmap <leader>t8 :set expandtab tabstop=8 shiftwidth=8 softtabstop=8<CR>
-nmap <leader>T8 :set noexpandtab tabstop=8 shiftwidth=8 softtabstop=8<CR>
-
-
 " Python specific
-
-
 if executable('pyls')
     " pip install python-language-server
     au User lsp_setup call lsp#register_server({
@@ -800,14 +714,13 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 command! Pandocahtml :w | ! pandocconvert.sh "%" html5
-command! Pandocpdf :w | ! pandocconvert.sh "%" pdf
-command! Pandocdocx :w | ! pandocconvert.sh "%" docx
-command! Openahtml :w | ! pandocconvert.sh "%" html5 open
-command! Openpdf :w | ! pandocconvert.sh "%" pdf open
-command! Opendocx :w | ! pandocconvert.sh "%" docx open
+command! Pandocpdf   :w | ! pandocconvert.sh "%" pdf
+command! Pandocdocx  :w | ! pandocconvert.sh "%" docx
+command! Openahtml   :w | ! pandocconvert.sh "%" html5 open
+command! Openpdf     :w | ! pandocconvert.sh "%" pdf   open
+command! Opendocx    :w | ! pandocconvert.sh "%" docx  open
 
 " -----------------------------------------------------------------------------
-" cn
 
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 
@@ -829,7 +742,6 @@ vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 
 " substitute for current selection
 xnoremap gs y:%s/<C-r>"//g<Left><Left>
-
 
 " -----------------------------------------------------------------------------
 " Highlight all instances of word under cursor, when idle.
@@ -894,46 +806,6 @@ nnoremap <leader>fs :CtrlSF<CR>
 command! Ctpdiff :!cleartool diff -pre -col 190 % | less
 command! Ctpdiff2 :!cleartool diff -pre -ser % | less
 
-
-" -----------------------------------------------------------------------------
-" Fix autocompletions
-" function! g:UltiSnips_Complete()
-"   call UltiSnips#ExpandSnippet()
-"   if g:ulti_expand_res == 0
-"     if pumvisible()
-"       return "\<C-n>"
-"     else
-"       call UltiSnips#JumpForwards()
-"       if g:ulti_jump_forwards_res == 0
-"         return "\<TAB>"
-"       endif
-"     endif
-"   endif
-"   return ""
-" endfunction
-"
-" function! g:UltiSnips_Reverse()
-"   call UltiSnips#JumpBackwards()
-"   if g:ulti_jump_backwards_res == 0
-"     return "\<C-P>"
-"   endif
-"
-"   return ""
-" endfunction
-"
-" if !exists("g:UltiSnipsJumpForwardTrigger")
-"   let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" endif
-"
-" if !exists("g:UltiSnipsJumpBackwardTrigger")
-"   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" endif
-"
-" au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
-" au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
-"
-" inoremap <silent><C-X><C-U> <C-R>=g:UltiSnips_Complete()<CR>
-
 " -----------------------------------------------------------------------------
 " execute macro on visal range
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
@@ -942,30 +814,6 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-" -----------------------------------------------------------------------------
-" Make the dot command work as expected in visual mode (via
-" https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
-vnoremap . :norm.<CR>
-
-" -----------------------------------------------------------------------------
-" Save temporary/backup files not in the local directory, but in your ~/.vim
-" directory, to keep them out of git repos.
-" But first mkdir backup, swap, and undo first to make this work
-call system('mkdir ~/.vim')
-call system('mkdir ~/.vim/backup')
-call system('mkdir ~/.vim/swap')
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-
-" Keep undo history across sessions by storing it in a file
-if has('persistent_undo')
-    call system('mkdir ~/.vim/undo')
-    set undodir=~/.vim/undo//
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
-endif
 
 " -----------------------------------------------------------------------------
 " http://vim.wikia.com/wiki/Sum_numbers
@@ -1022,9 +870,12 @@ if isdirectory("build")
     nmap <leader>bc :call BuildCMakeProject("clean", "build")<CR>
     nmap <leader>bf :call BuildCMakeProject("format", "build")<CR>
 endif
+" -----------------------------------------------------------------------------
 
+" Make support
+" -----------------------------------------------------------------------------
 function! MakeAndRun()
-    :wa
+    call SaveAll()
     let ftypes = split ("c cpp cc")
     let filename = expand('%:r')
     let ctype = 0
@@ -1044,10 +895,16 @@ function! MakeAndRun()
     endif
 endfunction
 
+function! SaveAll()
+    :silent! Neoformat
+    :silent! wa
+endfunction
+
 imap <F5> <ESC>
 nmap <F5> :call MakeAndRun()<CR>
 nmap ss :w<CR>
-nmap sa :wa<CR>
+nmap sa :call SaveAll()<CR>
+" -----------------------------------------------------------------------------
 
 " -----------------------------------------------------------------------------
 " error message formats - see :help errorformat
@@ -1065,5 +922,3 @@ let &efm .= '%f:%l: warning: %m' . ','
 " Change cursor modes when entering/exiting visual from/to normal mode
 :autocmd InsertEnter * set nocul
 :autocmd InsertLeave * set cul
- 
-
