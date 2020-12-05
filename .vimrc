@@ -699,7 +699,7 @@ let g:airline#extensions#default#section_truncate_width = {
   \ }
 
 let w:airline_skip_empty_sections = 1
-" let g:airline_section_b=' %{fugitive#head()}'
+let g:airline_section_b=' %{fugitive#head()}'
 " let g:airline#extensions#hunks#enabled = 0
 " let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_section_z=' %l/%L:%c'
