@@ -1,6 +1,5 @@
-" this script is being ln -s to ~/.config/nvim/init.vim ~/.vimrc ~/.nvimrc
-" set nocompatible              " be iMproved, required
-" filetype off                  " required
+" TODO: install nerd-fonts-devaju-complete or compatible packages for 
+" showing powerline fonts in airline status properly
 
 if has('nvim')
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -15,46 +14,20 @@ else
 endif
 
 call plug#begin('~/.vim/bundle')
-" Extra color schemes
-Plug 'arzg/vim-colors-xcode'
-Plug 'jcherven/jummidark.vim'
-Plug 'wadackel/vim-dogrun'
-Plug 'gilgigilgil/anderson.vim'
-Plug 'doums/darcula'
-Plug 'arzg/vim-corvine'
-Plug 'sainnhe/archived-colors'
-Plug 'sainnhe/forest-night'
 Plug 'sainnhe/forest-night'
     
 " Python support
 Plug 'jeetsukumaran/vim-pythonsense'
 
-"PDFtoText 
-Plug 'makerj/vim-pdf'
-
 " let Vundle manage Vundle, required
 Plug 'VundleVim/Vundle.vim'
 
-" Keep Plugin commands between vundle#begin/end.
-Plug 'tpope/vim-fugitive'
-
-" :GV - commit browser
-" :GV! only commits for current file
-"  o or <cr> on a commit to display the content of it
-"  o or <cr> on commits to display the diff in the range
-"  O opens a new tab instead
-"  gb for :Gbrowse
-"  ]] and [[ to move between commits
-"  . to start command-line with :Git [CURSOR] SHA à la fugitive
-"  q to close
-Plug 'junegunn/gv.vim'
-
 Plug 'tpope/vim-surround'
-
 
 Plug 'tomtom/tcomment_vim'
 
 Plug 'bling/vim-airline'
+
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'airblade/vim-gitgutter'
@@ -65,30 +38,22 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'jpo/vim-railscasts-theme'
-
 Plug 'scrooloose/nerdTree'
 
 Plug 'vim-scripts/indentpython.vim'
 
-" aa ia - around argument, in argument
-Plug 'vim-scripts/argtextobj.vim'
-
-" Alt+c - modify color
-" Alt+r - insert new color RGB
-" Alt+2 - insert new color RGBA
-" :ColorPicker - color picker
-" origin: KabbAmine/vCoolor.vim
 Plug 'kracejic/vcoolor.vim'
 
 " new text objects
 Plug 'kana/vim-textobj-user'
+
 " f F text objects
 Plug 'kana/vim-textobj-function'
+
 " User defined operators/actions
 Plug 'kana/vim-operator-user'
-Plug 'michaeljsmith/vim-indent-object'
 
+Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'vimwiki/vimwiki'
 
@@ -97,14 +62,7 @@ Plug 'christoomey/vim-sort-motion'
 
 Plug 'tomasr/molokai'
 
-Plug 'octol/vim-cpp-enhanced-highlight'
-
-Plug 'pearofducks/ansible-vim'
-
-" :Tabularize
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown' "better markdown support
-
 
 " better cooperation with tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -116,38 +74,22 @@ Plug 'kshenoy/vim-signature'
 Plug 'derekwyatt/vim-fswitch'
 
 Plug 'rhysd/vim-clang-format'
+
 Plug 'sbdchd/neoformat'
 
 " session management
-Plug 'tpope/vim-obsession'
-Plug 'dhruvasagar/vim-prosession'
 Plug 'gikmx/ctrlp-obsession'
 
-" vim abolish does three things,
-" :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
-" :Subvert/blog{,s}/post{,s}/g
-" coercion - crs, crc change to snake case,
-"              change to camel case, cru upper case
-Plug 'tpope/vim-abolish'
-
 " Snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" Plug 'kracejic/snippetinabox.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'kracejic/snippetinabox.vim'
 
 Plug 'scrooloose/syntastic'
 
 Plug 'majutsushi/tagbar'
 
 Plug 'joereynolds/gtags-scope'
-
-" nice search in files
-Plug 'dyng/ctrlsf.vim'
-" :FS [pattern]
-
-
-" search with :Ack [options] {pattern] [{directories}]
-Plug 'mileszs/ack.vim'
 
 " :Dox command generates stub for doxygen doc in C++, etc
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -191,6 +133,7 @@ Plug 'tpope/vim-eunuch'
 "
 "Give a range to run part or all of the current buffer as a query.
 ":%DB mysql://root@localhost/bazquux
+"
 Plug 'tpope/vim-db'
 
 Plug 'Yggdroot/indentLine'
@@ -209,122 +152,76 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 " Add suport for languages
 Plug 'mattn/vim-lsp-settings'
-" Support snippets
-Plug 'SirVer/ultisnips'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-
-" Plug 'artur-shaik/vim-javacomplete2'
-
 
 let g:colorizer_startup = 0
-
-
-Plug 'kracejic/themeinabox.vim'
-
-" Bin
-" Plug 'itchyny/calendar.vim'
-" Plug 'Yggdroot/indentLine'
-
-
-
 
 " All of your Plugins must be added before the following line
 call plug#end()
 
-
-" Use of the filetype plugins, auto completion and indentation support
-" filetype plugin indent on    " required
-
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" -----------------------------------------------------------------------------
-" Key shortcuts in VIM
-" !! bash output on screen, current line is stdin
-
-
 "General
 set number  "Show line numbers
-" set relativenumber
-" set nonu
-" set nornu
+
 nmap <leader>num :set nu! <CR>:set rnu!<CR>
 nmap <leader>gnum :set g:nu! <CR>:set g:rnu!<CR>
-set wrap  "enable wraping
+
+set wrap        "enable wraping
 set linebreak   "Break lines at word (requires Wrap lines)
-set nolist         " list disables linebreak
-set scrolloff=5         " 2 lines above/below cursor when scrolling
+set nolist      " list disables linebreak
+set scrolloff=5 " 2 lines above/below cursor when scrolling
 set noswapfile  " turn off swapfiles
 
 :imap jk <Esc>
 :imap <C-L> <Esc>
 
 set textwidth=0
-set wrapmargin=0  "Disable line wrap
-set ruler   "Show row and column ruler information
-set showbreak=+++   "Wrap-broken line prefix
-"set textwidth=100   "Line wrap (number of cols)
-set showmatch   "Highlight matching brace
-set showcmd             " show command in bottom bar
-set title               " show file in titlebar
-set showmode            " show mode in status bar (insert/replace/...)
-set visualbell  "Use visual bell (no beeping)
-set cursorline          " highlight current line
-set matchpairs+=<:>     " specially for html
+set wrapmargin=0                       " Disable line wrap
+set ruler                              " Show row and column ruler information
+set showbreak=+++                      " Wrap-broken line prefix
+" set textwidth=100                    " Line wrap (number of cols)
+set showmatch                          " Highlight matching brace
+set showcmd                            " show command in bottom bar
+set title                              " show file in titlebar
+set showmode                           " show mode in status bar (insert/replace/...)
+set visualbell                         " Use visual bell (no beeping)
+set cursorline                         " highlight current line
+set matchpairs+=<:>                    " specially for html
 
-set hlsearch    "Highlight all search results
-set smartcase   "Enable smart-case search
-set ignorecase  "Always case-insensitive
-set incsearch   "Searches for strings incrementally
+set hlsearch                           " Highlight all search results
+set smartcase                          " Enable smart-case search
+set ignorecase                         " Always case-insensitive
+set incsearch                          " Searches for strings incrementally
 nmap \q :nohlsearch<CR>
 nnoremap <leader><space> :noh<cr>
 
 
-set virtualedit=onemore  "allow to go one character behind the end of the line
-set autoindent  "Auto-indent new lines
-set expandtab   "Use spaces instead of tabs
-set shiftwidth=4    "Number of auto-indent spaces
-set smartindent "Enable smart-indent
-set smarttab    "Enable smart-tabs
-set softtabstop=4   "Number of spaces per Tab
-set wildmenu            " visual autocomplete for command menu
+set virtualedit=onemore                " allow to go one character behind the end of the line
+set autoindent                         " Auto-indent new lines
+set expandtab                          " Use spaces instead of tabs
+set shiftwidth=4                       " Number of auto-indent spaces
+set smartindent                        " Enable smart-indent
+set smarttab                           " Enable smart-tabs
+set softtabstop=4                      " Number of spaces per Tab
+set wildmenu                           " visual autocomplete for command menu
 set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,*/cm/log/**,tags,*.jpg,*.png,*.jpeg,*.png,*.mesh,build*/**,build/**,*.sublime-workspace,*.svg,build2/**,build3/**
-set lazyredraw          " redraw only when we need to.
-set confirm             " get a dialog when :q, :w, or :wq fails
-set nobackup            " no backup~ files.
-set viminfo='20,\"500   " remember copy registers after quitting in the .viminfo file -- 20 jump links, regs up to 500 lines'
-set hidden              " remember undo after quitting
-set history=150          " keep 50 lines of command history
-set mouse=v             " use mouse in visual mode (not normal,insert,command,help mode
+set lazyredraw                         " redraw only when we need to.
+set confirm                            " get a dialog when :q, :w, or :wq fails
+set nobackup                           " no backup~ files.
+set viminfo='20,\"500                  " remember copy registers after quitting in the .viminfo file -- 20 jump links, regs up to 500 lines'
+set hidden                             " remember undo after quitting
+set history=150                        " keep 50 lines of command history
+set mouse=v                            " use mouse in visual mode (not normal,insert,command,help mode
 set t_ut=
 set previewheight=7
 
-set fillchars+=vert:│         " nicer vert split separator
-set fillchars+=stlnc:-        " nicer separator for horizontal split
+set fillchars+=vert:│                  " nicer vert split separator
+set fillchars+=stlnc:-                 " nicer separator for horizontal split
 
-if has('gui_running')
-  set guifont=Iosevka\ Term\ 12
-endif
-
-"display whitespace
-set listchars=tab:>-,trail:~,extends:>,precedes:<
-"set listchars=eol: ,tab:>-,trail:~,extends:>,precedes:<
-
-set tags=./tags;/   "This will look in the current directory for 'tags', and work up the tree towards root until one is found.
+let g:indentLine_char = '⁝'
+    
+"This will look in the current directory for 'tags', and work up the tree towards root until one is found.
+set tags=./tags;/                       
 set cscopetag
-
+ 
 "Fuzzy search
 if isdirectory("/mingw32")
     " CtrlP settings
@@ -362,11 +259,9 @@ else
     " command! GGFiles call fzf#run(fzf#wrap({'source': 'git ls-files -co --exclude-standard', 'sink': 'e'}))
 
     nnoremap <C-p> :GGFiles<cr>
-    " nnoremap <C-p> :CtrlP<cr>
     nnoremap <leader>. :BTags<cr>
     nnoremap <leader>, :Tags<cr>
     nnoremap <leader>q :CtrlPQuickfix<cr>
-    " nnoremap <Leader>ss :CtrlPObsession<CR>
     nnoremap <leader>a :Buffers<CR>
     nnoremap <leader><tab> :Buffers<CR>
     " fzf
@@ -374,7 +269,6 @@ else
     nnoremap <leader>L :Lines<cr>
     nnoremap <leader>l :BLines<cr>
     nnoremap <leader>ft :Filetype<cr>
-    " TODO \* usage of word with :Lines and :Ag
 
     " Insert mode completion imap <c-x><c-k> <plug>(fzf-complete-word)
     imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -387,9 +281,6 @@ command! Gtagsgenerate :!gtags
 " let GtagsCscope_Auto_Load = 1
 " find references
 nnoremap <leader>ygr "zyiw:cs find c <C-r>z<CR>
-
-" Git-fugitive stuff
-nmap <leader>g :Gstatus<cr>gg<C-n>
 
 " open header fswitch
 nmap <silent> <F4> :FSHere<cr>
@@ -405,7 +296,7 @@ nmap <silent> <Leader>oJ :FSSplitBelow<cr>
 
 " Tagbar
 nmap <silent> <F3> :TagbarToggle<CR>
-nmap <silent> <F5> :TagbarOpenAutoClose<CR>
+nmap <silent> <F7> :TagbarOpenAutoClose<CR>
 let g:tagbar_case_insensitive = 1
 " let g:tagbar_compact = 1
 let g:tagbar_indent = 1
@@ -475,20 +366,7 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" vimwiki
-command! WTable :VimwikiTable
-command! WToc :VimwikiTOC
-command! WTags :VimwikiRebuildTags
-
-" z= choose spell          ]s [s move
-" zg add to spellfile      zw add as bad,           zug/zuw remove from spellfile
-set spellfile=~/.vim/spell.misc.utf-8.add
-command! Spellen :setlocal spell spelllang=en_us
-command! Spellcs :setlocal spell spelllang=cs
-command! Spellnone :setlocal nospell
 command! ColorPicker :VCoolor
-
-" let g:calendar_google_calendar = 1
 
 " TermDebug
 let g:termdebug_popup = 0
@@ -501,6 +379,7 @@ command QF :copen 20<CR>
 command Qf :copen 20<CR>
 command QFF :cclose 20<CR>
 command Qff :cclose 20<CR>
+
 " quickfix next, prev
 :nmap [q :cprev<CR>
 :nmap ]q :cnext<CR>
@@ -516,12 +395,12 @@ command Qff :cclose 20<CR>
 " Theme stuff
 "let base16colorspace=256  " Access colors present in 256 colorspace
 set background=dark
-nnoremap <leader>1 :colorscheme railscasts<cr>:AirlineTheme dark<cr>
-nnoremap <leader>2 :colorscheme molokai<cr>:AirlineTheme base16_monokai<cr>
-nnoremap <leader>3 :colorscheme themeinabox<cr>:AirlineTheme base16_eighties<cr>
-nnoremap <leader>4 :colorscheme themeinabox-light<cr>:AirlineTheme sol<cr>
-nnoremap <leader>5 :colorscheme themeinabox-transparent<cr>:AirlineTheme base16_eighties<cr>
-nnoremap <leader>6 :colorscheme themeinabox-blue<cr>:AirlineTheme base16_grayscale<cr>
+" nnoremap <leader>1 :colorscheme railscasts<cr>:AirlineTheme dark<cr>
+" nnoremap <leader>2 :colorscheme molokai<cr>:AirlineTheme base16_monokai<cr>
+" nnoremap <leader>3 :colorscheme themeinabox<cr>:AirlineTheme base16_eighties<cr>
+" nnoremap <leader>4 :colorscheme themeinabox-light<cr>:AirlineTheme sol<cr>
+" nnoremap <leader>5 :colorscheme themeinabox-transparent<cr>:AirlineTheme base16_eighties<cr>
+" nnoremap <leader>6 :colorscheme themeinabox-blue<cr>:AirlineTheme base16_grayscale<cr>
 
 " get current syntax class
 nmap <leader>sy :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -590,13 +469,13 @@ augroup END
 " TermDebug for GDB debugger integration
 packadd termdebug
 
-let g:indentLine_char = '¦'
+" let g:indentLine_char = '¦'
 " let g:indentLine_setConceal = 0
 " let g:indentLine_enabled = 0
 " let g:indentLine_concealcursor = 'inc'
 " let g:indentLine_conceallevel = 0
 " let g:indentLine_fileTypeExclude = ['markdown']
-let g:indentLine_fileType = ["yaml","yml","json"]
+" let g:indentLine_fileType = ["yaml","yml","json"]
 
 " Neoformat
 let g:neoformat_enabled_python = ['autopep8']
@@ -718,41 +597,12 @@ set tabpagemax=50 " max number of pages
 colorscheme forest-night
 let g:airline_theme='base16_eighties'
 
-"plugins
-set runtimepath^=~/.nvim/bundle/ctrlp.vim
-
-
 "save with root
 command! Wroot :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " fix typo
 command! W :w
 
-"   YCMd
-" http://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
-" :h ins-completion.
-" :YcmDiags - errors
-" let g:ycm_confirm_extra_conf = 0
-" let g:ycm_global_ycm_extra_conf = '~/bin/rc/.ycm_extra_conf.py'
-" let g:ycm_error_symbol = '%'
-" let g:ycm_warning_symbol = '%'
-" let g:ycm_always_populate_location_list = 1
-" let g:ycm_max_diagnostics_to_display = 300
-" nnoremap <leader>yj :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <leader>yg :YcmCompleter GoTo<CR>
-" nnoremap <leader>yi :YcmCompleter GoToImplementationElseDeclaration<CR>
-" nnoremap <leader>yt :YcmCompleter GetTypeImprecise<CR>
-" nnoremap <leader>yd :YcmCompleter GetDoc<CR>
-" nnoremap <leader>yf :YcmCompleter FixIt<CR>
-" nnoremap <leader>yr :YcmCompleter GoToReferences<CR>
-" nnoremap <leader>ys :YcmDiags<CR>
-" nnoremap <leader>yD ::YcmForceCompileAndDiagnostics<CR>
-" nnoremap <leader>yR :YcmRestartServer<CR>
-" nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" nnoremap <F10> :YcmCompleter GetTypeImprecise<CR>
-" nnoremap <F9> :YcmCompleter GetDocImprecise<CR>
-" "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-
-" ultisnip and LspSnip 
+" ultisnip and LspSnip
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -767,7 +617,7 @@ if executable('clangd')
                     \ 'cmd': {server_info->['clangd']},
                     \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
                     \ })
-	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+        autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
     augroup end
 endif
 "-----------------------------------------------------------------------
@@ -847,29 +697,27 @@ let g:airline#extensions#default#section_truncate_width = {
   \ 'warning': 80,
   \ 'error': 80,
   \ }
+
 let w:airline_skip_empty_sections = 1
 " let g:airline_section_b=' %{fugitive#head()}'
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline_section_z='☰ %l/%L:%c'
+" let g:airline#extensions#hunks#enabled = 0
+" let g:airline#extensions#wordcount#enabled = 0
+" let g:airline_section_z=' %l/%L:%c'
 let g:airline#extensions#branch#format = 2
 
 set laststatus=2
-if hostname() =~ "ankh"
-    let g:airline_powerline_fonts = 1
-elseif hostname() =~ "chirm"
-    let g:airline_powerline_fonts = 1
-else
-    let g:airline_powerline_fonts = 1
-endif
-let g:airline#extensions#tabline#enabled = 0
-"let g:airline#extensions#tabline#left_sep = ' '
+
+let g:airline_powerline_fonts = 1
+" let g:airline_symbols_ascii = 1
+
+" let g:airline#extensions#tabline#enabled = 0
+" let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
 " autocmd VimEnter * set showtabline=0
 " autocmd VimEnter * AirlineToggle
 
-nmap <F5>          <Plug>XTablineToggleTabs
-nmap <leader><F5>  <Plug>XTablineToggleFiltering
+" nmap <leader><F5>          <Plug>XTablineToggleTabs
+" nmap <leader><F5>  <Plug>XTablineToggleFiltering
 
 " tabline
 " command! TablineON :let g:airline#extensions#tabline#enabled=1
@@ -1063,27 +911,27 @@ command! Ctpdiff2 :!cleartool diff -pre -ser % | less
 "   endif
 "   return ""
 " endfunction
-" 
+"
 " function! g:UltiSnips_Reverse()
 "   call UltiSnips#JumpBackwards()
 "   if g:ulti_jump_backwards_res == 0
 "     return "\<C-P>"
 "   endif
-" 
+"
 "   return ""
 " endfunction
-" 
+"
 " if !exists("g:UltiSnipsJumpForwardTrigger")
 "   let g:UltiSnipsJumpForwardTrigger = "<tab>"
 " endif
-" 
+"
 " if !exists("g:UltiSnipsJumpBackwardTrigger")
 "   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " endif
-" 
+"
 " au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 " au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
-" 
+"
 " inoremap <silent><C-X><C-U> <C-R>=g:UltiSnips_Complete()<CR>
 
 " -----------------------------------------------------------------------------
@@ -1177,20 +1025,23 @@ endif
 
 function! MakeAndRun()
     :wa
-    let ftypes = split ("c cpp cc h hpp")
+    let ftypes = split ("c cpp cc")
     let filename = expand('%:r')
+    let ctype = 0
 
     for file in ftypes
         if &ft == file
             " echo "C filetype detected..."
-            echon system("make -s && ./" . filename)  
-            break
-        else
-            " echo "ANY filetype detected..."
-            echon system("make")
+            echon system("make -s && ./" . filename)
+            let ctype = 1
             break
         endif
     endfor
+
+    if ctype == 0
+        " echo "ANY filetype detected..."
+        echon system("make")
+    endif
 endfunction
 
 imap <F5> <ESC>
@@ -1214,4 +1065,5 @@ let &efm .= '%f:%l: warning: %m' . ','
 " Change cursor modes when entering/exiting visual from/to normal mode
 :autocmd InsertEnter * set nocul
 :autocmd InsertLeave * set cul
+ 
 
