@@ -14,6 +14,10 @@ else
 endif
 
 call plug#begin('~/.vim/bundle')
+" developer icon pack for nerdTree
+Plug 'ryanoasis/vim-devicons'
+
+"forest-night theme
 Plug 'sainnhe/forest-night'
     
 " Python support
@@ -24,15 +28,18 @@ Plug 'VundleVim/Vundle.vim'
 
 Plug 'tpope/vim-surround'
 
-Plug 'tpope/vim-fugitive'
-
 Plug 'tomtom/tcomment_vim'
 
 Plug 'bling/vim-airline'
 
 Plug 'vim-airline/vim-airline-themes'
 
+" for added,modified, deleted sings on git 
 Plug 'airblade/vim-gitgutter'
+" for diff, staging and committing etc.
+Plug 'jreybert/vimagit'
+" for extra command line utilies of git
+Plug 'tpope/vim-fugitive'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -347,6 +354,7 @@ nnoremap <leader>W :Bd<CR>
 " color
 let g:SignatureMarkTextHLDynamic = 1
 let g:SignatureMarkerTextHLDynamic = 1
+let g:gitgutter_async = 0
 
 "reload vimrc
 :nmap \rv :source $MYVIMRC<CR>
