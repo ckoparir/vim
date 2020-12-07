@@ -143,15 +143,15 @@ Plug 'tpope/vim-eunuch'
 "Give a range to run part or all of the current buffer as a query.
 ":%DB mysql://root@localhost/bazquux
 
-Plug 'tpope/vim-db'
+" Plug 'tpope/vim-db'
 
 Plug 'Yggdroot/indentLine'
 
-Plug 'skywind3000/asyncrun.vim'
+" Plug 'skywind3000/asyncrun.vim'
 
 " New autocomplete
 " Async support
-Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/async.vim'
 " Async autocompletion for Vim 8 and Neovim with |timers|.
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
@@ -354,7 +354,6 @@ nnoremap <leader>W :Bd<CR>
 " color
 let g:SignatureMarkTextHLDynamic = 1
 let g:SignatureMarkerTextHLDynamic = 1
-let g:gitgutter_async = 0
 
 "reload vimrc
 :nmap \rv :source $MYVIMRC<CR>
