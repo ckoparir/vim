@@ -1,7 +1,6 @@
 # Build and Release Folders
 undo/
 bundle/
-autoload/
 session/
 swap/
 backup/
