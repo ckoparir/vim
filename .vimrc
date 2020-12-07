@@ -225,7 +225,7 @@ set previewheight=7
 set fillchars+=vert:│                  " nicer vert split separator
 set fillchars+=stlnc:-                 " nicer separator for horizontal split
 
-let g:indentLine_char = '⁝'
+let g:indentLine_char = ''
     
 "This will look in the current directory for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;/                       
