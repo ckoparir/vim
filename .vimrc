@@ -14,6 +14,12 @@ else
 endif
 
 call plug#begin('~/.vim/bundle')
+" edge theme
+Plug 'sainnhe/edge'
+
+" dogrun theme
+Plug 'wadackel/vim-dogrun'
+
 " developer icon pack for nerdTree
 Plug 'ryanoasis/vim-devicons'
 
@@ -169,6 +175,9 @@ call plug#end()
 
 "General
 set number  "Show line numbers
+set encoding=utf-8
+set fileencoding=utf-8
+let &termencoding = &encoding
 
 nmap <leader>num :set nu! <CR>:set rnu!<CR>
 nmap <leader>gnum :set g:nu! <CR>:set g:rnu!<CR>
@@ -182,6 +191,7 @@ set noswapfile  " turn off swapfiles
 :imap jk <Esc>
 :imap <C-L> <Esc>
 
+set nowrap
 set textwidth=0
 set wrapmargin=0                       " Disable line wrap
 set ruler                              " Show row and column ruler information
@@ -555,8 +565,8 @@ au CursorHold * checktime
 
 set tabpagemax=50 " max number of pages
 
-" colorscheme themeinabox
 colorscheme forest-night
+" colorscheme edge
 let g:airline_theme='base16_eighties'
 
 "save with root
@@ -711,7 +721,7 @@ if executable('pyls')
         \ })
 endif
 
-au BufNewFile,BufRead *.py
+au BufNewFile, BufRead *.py
     \ set tabstop=4
     \ set softtabstop=4
     \ set shiftwidth=4
@@ -882,7 +892,8 @@ endif
 " Make support
 " -----------------------------------------------------------------------------
 function! MakeAndRun()
-    call SaveAll()
+    " call SaveAll()
+    :silent! w
     let ftypes = split ("c cpp cc")
     let filename = expand('%:r')
     let ctype = 0
@@ -897,8 +908,12 @@ function! MakeAndRun()
     endfor
 
     if ctype == 0
-        " echo "ANY filetype detected..."
-        echon system("make")
+        if &ft == "python"
+            echon system("./" . filename)
+        else
+            " echo "ANY filetype detected..."
+            echon system("make")
+        endif
     endif
 endfunction
 
