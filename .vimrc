@@ -567,7 +567,7 @@ set tabpagemax=50 " max number of pages
 
 colorscheme forest-night
 " colorscheme edge
-let g:airline_theme='base16_eighties'
+let g:airline_theme='transparent'
 
 "save with root
 command! Wroot :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -944,3 +944,19 @@ let &efm .= '%f:%l: warning: %m' . ','
 " Change cursor modes when entering/exiting visual from/to normal mode
 :autocmd InsertEnter * set nocul
 :autocmd InsertLeave * set cul
+
+" Set of new look and improvements for i3 desktops
+" -----------------------------------------------------------------------------
+" desc: compatibility for xterm on i3 desktops
+"
+
+set novb
+" use 256 colors in Console mode if we think the terminal supports it
+if &term =~? 'mlterm\|xterm'
+	set t_Co=256
+  set termguicolors
+endif
+
+
+" -----------------------------------------------------------------------------
+
