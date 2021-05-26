@@ -557,7 +557,7 @@ au CursorHold * checktime
 set tabpagemax=50 " max number of pages
 
 " colorscheme themeinabox
-colorscheme forest-night
+colorscheme everforest
 let g:airline_theme='base16_eighties'
 
 "save with root
