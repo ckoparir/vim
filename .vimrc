@@ -179,8 +179,8 @@ set nolist      " list disables linebreak
 set scrolloff=5 " 2 lines above/below cursor when scrolling
 set noswapfile  " turn off swapfiles
 
-:imap jk <Esc>
-:imap <C-L> <Esc>
+imap jk <Esc>
+imap <C-L> <Esc>
 
 set textwidth=0
 set wrapmargin=0                       " Disable line wrap
@@ -225,7 +225,7 @@ set previewheight=7
 set fillchars+=vert:│                  " nicer vert split separator
 set fillchars+=stlnc:-                 " nicer separator for horizontal split
 
-let g:indentLine_char = '⁝'
+let g:indentLine_char = ''
     
 "This will look in the current directory for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;/                       
@@ -357,7 +357,7 @@ let g:SignatureMarkerTextHLDynamic = 1
 let g:gitgutter_async = 0
 
 "reload vimrc
-:nmap \rv :source $MYVIMRC<CR>
+nmap \rv :source $MYVIMRC<CR>
 
 "strip whitespace
 nnoremap <leader>sw :%s/\s\+$//<cr>:let @/=''<CR>
@@ -376,7 +376,7 @@ let g:termdebug_popup = 0
 let g:termdebug_wide = 163
 
 " quickfix open
-:nmap        gqf :copen  20<CR>
+nmap        gqf :copen  20<CR>
 command Quickfix :copen  20<CR>
 command       QF :copen  20<CR>
 command       Qf :copen  20<CR>
@@ -384,16 +384,16 @@ command      QFF :cclose 20<CR>
 command      Qff :cclose 20<CR>
 
 " quickfix next, prev
-:nmap [q :cprev<CR>
-:nmap ]q :cnext<CR>
-:nmap [Q :cfirst<CR>
-:nmap ]Q :clast<CR>
+nmap [q :cprev<CR>
+nmap ]q :cnext<CR>
+nmap [Q :cfirst<CR>
+nmap ]Q :clast<CR>
 
 " location list next, prev
-:nmap [e :lprev<CR>
-:nmap ]e :lnext<CR>
-:nmap [E :lfirst<CR>
-:nmap ]E :llast<CR>
+nmap [e :lprev<CR>
+nmap ]e :lnext<CR>
+nmap [E :lfirst<CR>
+nmap ]E :llast<CR>
 
 " Theme stuff
 set background=dark
@@ -404,7 +404,7 @@ nmap <leader>sy :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 "goto next file
-:nmap <C-`> :e#<CR>
+nmap <C-`> :e#<CR>
 
 "toc for markdown
 nmap <leader>toc :g/^#/#<CR> :noh <CR>
@@ -500,7 +500,7 @@ let g:syntastic_java_checkers = []
 nmap <leader>cre /[,)]<CR>:nohlsearch<CR>Bhi&<ESC>?[,(]<CR>:nohlsearch<CR>wiconst <ESC>
 noremap <leader>cr :pyf ~/bin/clang-rename.py<cr>
 
-:nmap \e :NERDTreeToggle<CR>
+nmap \e :NERDTreeToggle<CR>
 command! E :e %:p:h
 command! LS :!ls -alh --color=always %:p:h
 
@@ -858,7 +858,7 @@ function! BuildCMakeProject(target, dir)
     setlocal nonumber
     setlocal norelativenumber
     setlocal conceallevel=3
-    :map <buffer> q :bd<cr>
+    map <buffer> q :bd<cr>
     " setlocal nomodifiable
 
     execute 'AsyncRun bb '. a:target
