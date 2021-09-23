@@ -1,6 +1,3 @@
-" TODO: install nerd-fonts-devaju-complete or compatible packages for 
-" showing powerline fonts in airline status properly
-
 if has('nvim')
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
         silent !wget -P ~/.config/nvim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -14,19 +11,43 @@ else
 endif
 
 call plug#begin('~/.vim/bundle')
+" typescript support
+Plug 'https://github.com/leafgarland/typescript-vim'
+
+" vim-js-pretty-template
+Plug 'https://github.com/Quramy/vim-js-pretty-template'
+
+" vim-javascript
+Plug 'https://github.com/pangloss/vim-javascript'
+
+" TSUQUYOMI to IDE like features
+Plug 'https://github.com/Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'https://github.com/Quramy/tsuquyomi'
+
 " developer icon pack for nerdTree
 Plug 'ryanoasis/vim-devicons'
 
 "forest-night theme
 Plug 'sainnhe/forest-night'
     
+" snow-theme
+Plug 'nightsense/snow'
+
+" vim-material-theme
+Plug 'jackiehluo/vim-material'
+
+" -theme
+Plug 'Nequo/vim-allomancer'
+Plug 'NLKNguyen/papercolor-theme'
+
+" light themes
+Plug 'mcchrish/zenbones.nvim'
+
 " Python support
 Plug 'jeetsukumaran/vim-pythonsense'
 
 " let Vundle manage Vundle, required
 Plug 'VundleVim/Vundle.vim'
-
-Plug 'tpope/vim-surround'
 
 Plug 'tomtom/tcomment_vim'
 
@@ -41,8 +62,6 @@ Plug 'jreybert/vimagit'
 " for extra command line utilies of git
 Plug 'tpope/vim-fugitive'
 
-Plug 'easymotion/vim-easymotion'
-
 Plug 'terryma/vim-multiple-cursors'
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -53,38 +72,19 @@ Plug 'vim-scripts/indentpython.vim'
 
 Plug 'kracejic/vcoolor.vim'
 
-" new text objects
-Plug 'kana/vim-textobj-user'
-
-" f F text objects
-Plug 'kana/vim-textobj-function'
-
-" User defined operators/actions
-Plug 'kana/vim-operator-user'
-
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'vimwiki/vimwiki'
-
-" gs
-Plug 'christoomey/vim-sort-motion'
-
-Plug 'tomasr/molokai'
 
 Plug 'plasticboy/vim-markdown' "better markdown support
 
 " better cooperation with tmux
 Plug 'christoomey/vim-tmux-navigator'
 
-" gutter for marks
-Plug 'kshenoy/vim-signature'
-
 " Vim Plug for switching between companion source files (e.g. .h and .cpp)
 Plug 'derekwyatt/vim-fswitch'
-
+Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-clang-format'
-
-Plug 'sbdchd/neoformat'
 
 " session management
 Plug 'gikmx/ctrlp-obsession'
@@ -103,20 +103,9 @@ Plug 'joereynolds/gtags-scope'
 " :Dox command generates stub for doxygen doc in C++, etc
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-" :Search :SearchBuffers :SearchReset :SearchBuffersReset
-" <Leader>*
-Plug 'vim-scripts/MultipleSearch'
-
 " fast searching
-" Plug 'junegunn/fzf'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" ga / gaip= align in paragraph around char =
-Plug 'junegunn/vim-easy-align'
-
-" :ColorToggle
-Plug 'lilydjwg/colorizer'
 
 " Syntaxes for a lot of languages
 Plug 'sheerun/vim-polyglot'
@@ -145,24 +134,14 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'tpope/vim-db'
 
-Plug 'Yggdroot/indentLine'
-
-Plug 'skywind3000/asyncrun.vim'
-
-" New autocomplete
-" Async support
-Plug 'prabirshrestha/async.vim'
-" Async autocompletion for Vim 8 and Neovim with |timers|.
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
 " Provide Language Server Protocol autocompletion source for asyncomplete.vim and vim-lsp.
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" Async Language Server Protocol plugin for vim8 and neovim.
 Plug 'prabirshrestha/vim-lsp'
-" Add suport for languages
 Plug 'mattn/vim-lsp-settings'
-
-let g:colorizer_startup = 0
+Plug 'skywind3000/asyncrun.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -225,8 +204,6 @@ set previewheight=7
 set fillchars+=vert:│                  " nicer vert split separator
 set fillchars+=stlnc:-                 " nicer separator for horizontal split
 
-let g:indentLine_char = ''
-    
 "This will look in the current directory for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;/                       
 set cscopetag
@@ -342,8 +319,8 @@ nnoremap <C-w><C-w><C-w>k <C-w>-
 nnoremap <C-w><C-w><C-w>j <C-w>+
 
 " buffers
-vmap \] :bnext<CR>
-nmap \[ :bprev<CR>
+vmap <leader>] :bnext<CR>
+nmap <leader>[ :bprev<CR>
 nmap <leader>D :bd<CR>
 command! Bda :bufdo bd
 nnoremap <bs> <c-^>
@@ -363,11 +340,6 @@ nmap \rv :source $MYVIMRC<CR>
 nnoremap <leader>sw :%s/\s\+$//<cr>:let @/=''<CR>
 command! Stripwhitespace :%s/\s\+$//
 command! Whitespacestrip :%s/\s\+$//
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap <leader>ea <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap <leader>ea <Plug>(EasyAlign)
 
 command! ColorPicker :VCoolor
 
@@ -395,8 +367,27 @@ nmap ]e :lnext<CR>
 nmap [E :lfirst<CR>
 nmap ]E :llast<CR>
 
-" Theme stuff
-set background=dark
+" Theme stuff *************
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+function! DarkTheme()
+    set background=dark
+    colorscheme snow
+endfunction
+
+function! LightTheme()
+    set background=light
+    " colorscheme PaperColor
+endfunction
+
+command! DarkTheme :call DarkTheme()
+command! LightTheme :call LightTheme()
+
+call DarkTheme()
+"***************************
+
 
 " get current syntax class
 nmap <leader>sy :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -430,16 +421,17 @@ command! XmlIndent :silent %!xmllint --encode UTF-8 --format -
 " default settings
 let g:clang_format#code_style = "llvm"
 let g:clang_format#style_options = {
-      \ "AllowShortFunctionsOnASingleLine": "Empty",
-      \ "AlwaysBreakTemplateDeclarations": "true",
-      \ "BreakBeforeBraces": "Allman",
-      \ "BreakConstructorInitializersBeforeComma": "true",
-      \ "IndentCaseLabels": "true",
-      \ "IndentWidth":     4,
-      \ "MaxEmptyLinesToKeep": 2,
-      \ "NamespaceIndentation": "Inner",
-      \ "ObjCBlockIndentWidth": 4,
-      \ "TabWidth": 4}
+    \ "AllowShortFunctionsOnASingleLine": "Empty",
+    \ "AlwaysBreakTemplateDeclarations": "true",
+    \ "BreakBeforeBraces": "Allman",
+    \ "BreakConstructorInitializersBeforeComma": "true",
+    \ "IndentCaseLabels": "true",
+    \ "IndentWidth":     4,
+    \ "MaxEmptyLinesToKeep": 2,
+    \ "NamespaceIndentation": "Inner",
+    \ "ObjCBlockIndentWidth": 4,
+    \ "ColumnLimit": 120,
+    \ "TabWidth": 4}
 
 augroup ClangFormatSettings
     autocmd!
@@ -451,17 +443,10 @@ augroup ClangFormatSettings
     autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
 augroup END
 
+autocmd FileType c,cpp,java,javascript,objc ClangFormatAutoEnable
+
 " TermDebug for GDB debugger integration
 packadd termdebug
-
-let g:indentLine_fileTypeExclude = ["markdown", "vim"]
-let g:indentLine_fileType = ["yaml","yml","json", "python", "c", "cpp", "h", "hpp", "cc"]
-
-nnoremap <Leader>cf :Neoformat<CR>
-vnoremap <Leader>cf :Neoformat<CR>
-
-" format line +-1
-autocmd FileType c,cpp,objc,java,javascript nnoremap <Leader>cc :.-1,.+1Neoformat<CR>
 
 " markdown ctags
 let g:tagbar_type_markdown = {
@@ -556,8 +541,6 @@ au CursorHold * checktime
 
 set tabpagemax=50 " max number of pages
 
-" colorscheme themeinabox
-colorscheme everforest
 let g:airline_theme='base16_eighties'
 
 "save with root
@@ -716,7 +699,7 @@ au BufNewFile, BufRead *.py
     \ set tabstop=4
     \ set softtabstop=4
     \ set shiftwidth=4
-    \ set textwidth=79
+    \ set textwidth=120
     \ set expandtab
     \ set autoindent
     \ set fileformat=unix
@@ -747,9 +730,6 @@ nnoremap cQ :call SetupCR()<CR>#``qz
 
 vnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
-
-" substitute for current selection
-xnoremap gs y:%s/<C-r>"//g<Left><Left>
 
 " -----------------------------------------------------------------------------
 " Highlight all instances of word under cursor, when idle.
@@ -802,14 +782,6 @@ nnoremap <leader>ag "zyiw:Ag <C-r>z<CR>
 nnoremap <leader>ack "zyiw:Ack <C-r>z<CR>
 
 " -----------------------------------------------------------------------------
-"  CtrlSF
-let g:ctrlsf_regex_pattern = 1
-let g:ctrlsf_default_root = 'cwd'
-cnoreabbrev FS CtrlSF
-cnoreabbrev Fs CtrlSF
-nnoremap <leader>fs :CtrlSF<CR>
-
-" -----------------------------------------------------------------------------
 "Work stuff clear case
 command! Ctpdiff :!cleartool diff -pre -col 190 % | less
 command! Ctpdiff2 :!cleartool diff -pre -ser % | less
@@ -821,17 +793,6 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
-" -----------------------------------------------------------------------------
-" http://vim.wikia.com/wiki/Sum_numbers
-" :let g:S=0
-" :%s/\d\+/\=Sum(submatch(0))/
-" :echo g:S
-let g:S = 0  "result in global variable S
-function! Sum(number)
-  let g:S = g:S + a:number
-  return a:number
 endfunction
 
 " -----------------------------------------------------------------------------
@@ -879,7 +840,6 @@ if isdirectory("build")
     nmap <leader>bf :call BuildCMakeProject("format", "build")<CR>
 endif
 " -----------------------------------------------------------------------------
-
 " Make support
 " -----------------------------------------------------------------------------
 function! MakeAndRun()
@@ -890,8 +850,13 @@ function! MakeAndRun()
 
     for file in ftypes
         if &ft == file
-            " echo "C filetype detected..."
-            echon system("make -s && ./" . filename)
+            let outfile='a.out'
+            echon system("make -s")
+            if findfile(outfile, ".") != ""
+                echon system("./".outfile)
+            else
+                echon system("./".filename)
+            endif
             let ctype = 1
             break
         endif
@@ -904,7 +869,6 @@ function! MakeAndRun()
 endfunction
 
 function! SaveAll()
-    :silent! Neoformat
     :silent! wa
 endfunction
 
@@ -930,3 +894,15 @@ let &efm .= '%f:%l: warning: %m' . ','
 " Change cursor modes when entering/exiting visual from/to normal mode
 :autocmd InsertEnter * set nocul
 :autocmd InsertLeave * set cul
+
+" ------------------------- Angular & Typescript  ----------------------------
+" typescript-vim
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+" vim-js-pretty-template
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces
+

@@ -27,7 +27,10 @@ BASE_FLAGS = [
     '-std=c++14',
     '-xc++',
     '-I/usr/lib/'
-    '-I/usr/include/'
+    '-I/usr/include/',
+    '-I/usr/include/SDL2',
+    '-I/usr/include/glib-2.0',
+    '/usr/lib64/glib-2.0/include/'
 ]
 
 SOURCE_EXTENSIONS = [
